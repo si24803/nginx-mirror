@@ -1,0 +1,22 @@
+networks:
+  reverse-proxy:
+
+services:
+  proxy:
+    image: nginx:1.26-alpine
+    ports:
+      - 8888:8080
+    volumes: 
+      - ./reverse-proxy.conf:/etc/nginx/conf.d/reverse-proxy.conf
+    networks:
+      - reverse-proxy
+
+  server1:
+    image: nginx:1.26-alpine
+    networks:
+      - reverse-proxy
+
+  server2:
+    image: nginx:1.26-alpine
+    networks:
+      - reverse-proxy
